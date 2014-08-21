@@ -12,12 +12,22 @@ Example
 -------
 
 	#include "sig.hpp"
+	#include <iostream>
 
+	using namespace std;
+	
 	class Writer
 	{
 	public:
 		sig::Signal<string>	 	on_write;
 		sig::Signal<>			on_finished;
+
+		bool	write(string data)
+		{
+			// do write
+			on_write.emit(data);
+			return (true);
+		}
 	};
 
 	class Test
@@ -39,3 +49,11 @@ Example
 			cout << "write job finished" << endl;
 		}
 	};
+
+	int main(void)
+	{
+		Writer w;
+		Test t(w);
+		w.write("This is my first signal receive");
+		return (0);
+	}
