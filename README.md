@@ -6,7 +6,9 @@ Signal library
 Installation
 ------------
 
-Put the file sig.hpp in your projects, and enjoy :)
+Put the file sig.hpp in your projects or you can do this command in your directory
+	wget https://raw.githubusercontent.com/alex8092/Sig/master/include/sig.hpp
+enjoy :)
 
 Example
 -------
@@ -15,7 +17,7 @@ Example
 	#include <iostream>
 
 	using namespace std;
-	
+
 	class Writer
 	{
 	public:
