@@ -1,4 +1,4 @@
-CC = g++-4.8
+CC = g++
 
 DEBUG = true
 
@@ -13,6 +13,6 @@ else
 endif
 
 %.test:
-	$(CC) -o $@.out src/$(basename $@).cpp $(CXXFLAGS) $(LDFLAGS)
+	$(CC) -o $@.out test/$(basename $@).cpp $(CXXFLAGS) $(LDFLAGS)
 
 .PHONY: %.test
