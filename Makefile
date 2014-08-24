@@ -13,6 +13,6 @@ else
 endif
 
 %.test:
-	$(CC) -o $@.out test/$(basename $@).cpp $(CXXFLAGS) $(LDFLAGS)
+	$(CC) -o $@.out tests/$(basename $@).cpp $(CXXFLAGS) $(LDFLAGS)
 
 .PHONY: %.test
