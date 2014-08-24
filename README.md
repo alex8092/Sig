@@ -16,7 +16,10 @@ Example
 -------
 
 You can See example in tests/ directory or by the following commands lines
+
 	- make basic.test
 	- make switcher.test
+
 or just typing bellow for all tests
+
 	make tests
