@@ -3,6 +3,7 @@
 
 # include <vector>
 # include <functional>
+# include <map>
 
 using namespace std::placeholders;
 
@@ -36,7 +37,7 @@ namespace sig
 		{
 			template <typename ...Args>
 			static inline void Do(U *vect, V func, W *object, Args&&... params) noexcept {
-				vect->push_back(std::bind(func, object, params...));
+				(*vect)[(void *)object] = std::bind(func, object, params...);
 			}
 		};
 	}
@@ -49,20 +50,36 @@ namespace sig
 		Signal(Signal&&) = delete;
 		Signal& operator=(Signal&) = delete;
 		Signal&& operator=(Signal&&) = delete;
-		std::vector<std::function<void(Params...)>>	_binds;
+		std::map<void *, std::function<void(Params...)>>	_binds;
+		int 			_max_connections;
+		int 			_current_connections = 0;
 
 	public:
-		Signal() = default;
+		Signal(int max_connections = 0) : _max_connections(max_connections) {};
 		virtual ~Signal() = default;
 
 		template <class U, class V>
-		inline void	connect(U func, V *object)
+		inline bool	connect(U func, V *object)
 		{
-			sig::_priv::_bind<std::vector<std::function<void(Params...)>>, U, V, sizeof...(Params)>::Do(&this->_binds, func, object);
+			if (this->_max_connections && this->_current_connections >= this->_max_connections)
+				return (false);
+			sig::_priv::_bind<std::map<void *, std::function<void(Params...)>>, U, V, sizeof...(Params)>::Do(&this->_binds, func, object);
+			++this->_current_connections;
+			return (true);
+		}
+
+		template <class V>
+		inline bool disconnect(V *object) noexcept {
+			auto it = this->_binds.find((void *)object);
+			if (it == this->_binds.end())
+				return (false);
+			this->_binds.erase(it);
+			--this->_current_connections;
+			return (true);
 		}
 
 		inline void emit(Params... parameters) noexcept {
-			for (auto it : this->_binds) it(parameters...);
+			for (auto it : this->_binds) it.second(parameters...);
 		}
 	};
 }
