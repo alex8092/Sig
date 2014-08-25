@@ -25,7 +25,7 @@ namespace sig
 
 	public:
 		SignalTimer(int max_connections = 0) : Signal<Params...>(max_connections) {};
-		virtual ~SignalTimer() {
+		virtual ~SignalTimer() noexcept {
 			this->_stop = true;
 			if (_in_thread)
 			{
