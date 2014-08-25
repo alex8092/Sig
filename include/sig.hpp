@@ -3,5 +3,6 @@
 
 # include "signal.hpp"
 # include "signalswitcher.hpp"
+# include "signaltimer.hpp"
 
 #endif

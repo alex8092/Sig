@@ -19,6 +19,7 @@ You can See example in tests/ directory or by the following commands lines
 
 	- make basic.test
 	- make switcher.test
+	- make timer.test
 
 or just typing bellow for all tests
 
