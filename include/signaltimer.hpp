@@ -39,15 +39,13 @@ namespace sig
 			{
 				this->onTick();
 				#if defined(_WIN32) || defined(_WIN64)
-			    HANDLE timer; 
-			    LARGE_INTEGER ft; 
-
-			    ft.QuadPart = -(10*this->_interval);
-
-			    timer = CreateWaitableTimer(NULL, TRUE, NULL); 
-			    SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0); 
-			    WaitForSingleObject(timer, INFINITE); 
-			    CloseHandle(timer); 
+				HANDLE timer; 
+				LARGE_INTEGER ft; 
+				ft.QuadPart = -(10*this->_interval);
+				timer = CreateWaitableTimer(NULL, TRUE, NULL); 
+				SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0); 
+				WaitForSingleObject(timer, INFINITE); 
+				CloseHandle(timer); 
 				#else
 				usleep(this->_interval);
 				#endif
