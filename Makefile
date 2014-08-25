@@ -13,6 +13,10 @@ else
 endif
 
 all:
+	$(eval TESTS := $(shell find tests/ -name "*.cpp" | sed -e 's/^tests\///g' | sed -e 's/.cpp$$//g'))
+	@echo "Try ..."
+	@for CMD in $(TESTS); do echo make $$CMD.test; done
+	@echo "Or 'make tests' for launching all tests"
 
 
 %.test:
@@ -22,5 +26,4 @@ all:
 	@echo "[End of test]\n"
 
 tests: basic.test switcher.test timer.test
-
 .PHONY: %.test
