@@ -6,9 +6,7 @@ Signal library
 Installation
 ------------
 
-Put the file sig.hpp in your projects or you can do this command in your directory
-
-	wget https://raw.githubusercontent.com/alex8092/Sig/master/include/sig.hpp
+Put the headers files in your project and include sig.hpp
 
 enjoy :)
 
